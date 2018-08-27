@@ -3,7 +3,11 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh "python --version"
+                timeout(time: 1, unit: 'MINUTES') {
+                    retry(2) {
+                        sh 'python --version'
+                    }
+                }
             }
         }
     }
